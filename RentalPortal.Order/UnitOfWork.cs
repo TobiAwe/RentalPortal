@@ -1,0 +1,76 @@
+﻿using System;
+using System.Threading.Tasks;
+using RentalPortal.Order.Persistence;
+using RentalPortal.Order.Persistence.Repository;
+
+namespace RentalPortal.Order
+{
+    public class UnitOfWork<TContext> : IUnitOfWork where TContext : EfDbContext
+    {
+        public IEquipmentRepository Equipment { get; set; }
+        public IOrderRepository Orders { get; set; }
+
+        private readonly TContext _context;
+
+        public UnitOfWork(TContext context)
+        {
+            _context = context;
+        }
+
+        public async Task CompleteAsync()
+        {
+            using (var transaction = _context.Database.BeginTransaction())
+            {
+                try
+                {
+                    await _context.SaveChangesAsync();
+                    transaction.Commit();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex);
+                    transaction.Rollback();
+                    throw;
+                }
+            }
+        }
+
+
+        public void Complete()
+        {
+            using (var transaction = _context.Database.BeginTransaction())
+            {
+                try
+                {
+                    _context.SaveChanges();
+                    transaction.Commit();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex);
+                    transaction.Rollback();
+                    throw;
+                }
+            }
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+        }
+
+        private volatile bool _isDisposing;
+
+        private void Dispose(bool disposing)
+        {
+            if (_isDisposing) return;
+
+            _isDisposing = disposing;
+            _context.Dispose();
+            _isDisposing = false;
+        }
+
+  
+    }
+}
+
