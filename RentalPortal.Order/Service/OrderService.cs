@@ -1,10 +1,11 @@
 ﻿using RentalPortal.Order.Persistence;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using RentalPortal.Order.Common.Enums;
 using RentalPortal.Order.DTO;
+using RentalPortal.Order.Entities;
 
 namespace RentalPortal.Order.Service
 {
@@ -33,22 +34,42 @@ namespace RentalPortal.Order.Service
 
         public async Task<List<OrderDto>> GetCustomerOrders(string email)
         {
-            throw new NotImplementedException();
+            var orders =await _uow.Orders.GetCustomerOrdersAsync(email);
+            return orders;
         }
 
         public async Task<List<OrderDto>> GetApprovedOrders()
         {
-            throw new NotImplementedException();
+            var approved =await _uow.Orders.GetAllOrdersAsync();
+            return approved;
         }
 
         public async Task CreateOrder(OrderDto order)
         {
-            throw new NotImplementedException();
+            var entry = new OrderRequest
+            {
+                OrderStatus = OrderStatus.Approved,
+                DateCreated = DateTime.UtcNow,
+                Email = order.Email,
+                OrderRequestItems = order.OrderRequestItems,
+            };
+            _uow.Orders.Add(entry);
+            await _uow.CompleteAsync();
         }
 
         public async Task UpdateOrder(OrderDto order)
         {
-            throw new NotImplementedException();
+            var request = await _uow.Orders.GetAsync(order.OrderId);
+
+            if (request == null)
+            {
+                throw await _helper.GetExceptionAsync("Order entry does not exist");
+            }
+            request.Email = order.Email;
+            request.DateCreated = order.DateCreated;
+            request.OrderStatus = order.OrderStatus;
+            request.OrderRequestItems = order.OrderRequestItems;
+            await _uow.CompleteAsync();
         }
     }
 }

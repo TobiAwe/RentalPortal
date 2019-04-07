@@ -20,7 +20,8 @@ namespace RentalPortal.Order.Persistence.Repository
                 select new EquipmentDto
                 {
                     Name = equipment.Name,
-                    EquipmentId = equipment.EquipmentId
+                    EquipmentId = equipment.EquipmentId,
+                    EquipmentType = equipment.EquipmentType
                 };
             return await data.AsNoTracking().ToListAsync();
         }

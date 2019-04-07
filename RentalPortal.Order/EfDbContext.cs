@@ -5,8 +5,8 @@ namespace RentalPortal.Order
 {
     public class EfDbContext : DbContext 
     {
-        public  DbSet<Equipment> Equipment { get; set; }
-        public DbSet<OrderRequest> OrderRequest { get; set; }
+        public DbSet<Equipment> Equipment { get; set; }
+        public DbSet<OrderRequest> OrderRequests { get; set; }
 
     }
 }

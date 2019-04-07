@@ -2,6 +2,7 @@
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -38,6 +39,7 @@ namespace RentalPortal.Identity
                   //  b => b.MigrationsAssembly("RentalPortalIdentity")));
 
             services.AddSingleton<IUserService, UserService>();
+            services.AddScoped<ExceptionHandlerMiddleware>();
             services.TryAddTransient<IHttpContextAccessor, HttpContextAccessor>();
 
             // jwt wire up
@@ -109,7 +111,7 @@ namespace RentalPortal.Identity
             {
                 app.UseDeveloperExceptionPage();
             }
-            //app.UseExceptionHandlerMiddleware();
+            app.UseExceptionHandler();
             app.UseAuthentication();
             app.UseDefaultFiles();
             app.UseStaticFiles();

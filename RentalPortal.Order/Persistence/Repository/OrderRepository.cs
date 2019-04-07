@@ -15,32 +15,31 @@ namespace RentalPortal.Order.Persistence.Repository
 
         public async Task<List<OrderDto>> GetAllOrdersAsync()
         {
-            var data = from order in Context.OrderRequest
+            var data = from order in Context.OrderRequests
                 orderby order.DateCreated descending
                 select new OrderDto
                 {
                     OrderId = order.OrderId,
                     Email = order.Email,
-                    StartDate = order.StartDate,
-                    EndDate = order.EndDate,
-                    Equipment = order.Equipment.Name
-
+                    DateCreated = order.DateCreated,
+                    OrderStatus = order.OrderStatus,
+                    OrderRequestItems = order.OrderRequestItems
                 };
             return await data.AsNoTracking().ToListAsync();
         }
 
         public async Task<List<OrderDto>> GetCustomerOrdersAsync(string email)
         {
-            var data = from order in Context.OrderRequest
+            var data = from order in Context.OrderRequests
                 where order.Email==email
                 orderby order.DateCreated descending
                 select new OrderDto
                 {
                     OrderId = order.OrderId,
                     Email = order.Email,
-                    StartDate = order.StartDate,
-                    EndDate = order.EndDate,
-                    Equipment = order.Equipment.Name
+                    DateCreated = order.DateCreated,
+                    OrderStatus = order.OrderStatus,
+                    OrderRequestItems = order.OrderRequestItems
 
                 };
             return await data.AsNoTracking().ToListAsync();

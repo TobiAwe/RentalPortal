@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using RentalPortal.Order.Common;
+using RentalPortal.Order.DTO;
+using RentalPortal.Order.Entities;
 
 namespace RentalPortal.Order.Service
 {
@@ -10,5 +10,9 @@ namespace RentalPortal.Order.Service
     {
         Task<RentalPortalGenericException> GetExceptionAsync(string errorCode);
         string GetCurrentUserEmail();
+        string NumberOfDays(DateTime startDate, DateTime endDate);
+        decimal CalculateAmount(OrderRequestItem ori);
+        decimal CalculateTotalOrderAmount(OrderDto order);
+        int CalculateTotalOrderBonus(OrderDto order);
     }
 }
