@@ -14,5 +14,7 @@ namespace RentalPortal.Order.Service
         decimal CalculateAmount(OrderRequestItem ori);
         decimal CalculateTotalOrderAmount(OrderDto order);
         int CalculateTotalOrderBonus(OrderDto order);
+        T GetOrUpdateCacheItem<T>(string key, Func<T> update, TimeSpan idle = default(TimeSpan));
+        void RemoveCachedItem(string key);
     }
 }

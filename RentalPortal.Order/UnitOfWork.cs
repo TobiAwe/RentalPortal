@@ -9,6 +9,7 @@ namespace RentalPortal.Order
     {
         public IEquipmentRepository Equipment { get; set; }
         public IOrderRepository Orders { get; set; }
+        public ISettingRepository Settings { get; set; }
 
         private readonly TContext _context;
 

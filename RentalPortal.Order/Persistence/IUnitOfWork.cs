@@ -8,6 +8,7 @@ namespace RentalPortal.Order.Persistence
     {
         IEquipmentRepository Equipment { get; set; }
         IOrderRepository Orders { get; set; }
+        ISettingRepository Settings { get; set; }
 
         Task CompleteAsync();
         void Complete();
