@@ -4,7 +4,7 @@ using RentalPortal.Order.Common;
 using RentalPortal.Order.DTO;
 using RentalPortal.Order.Entities;
 
-namespace RentalPortal.Order.Service
+namespace RentalPortal.Order.Service.Interfaces
 {
     public interface IServiceHelper
     {

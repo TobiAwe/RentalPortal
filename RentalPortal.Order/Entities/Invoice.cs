@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace RentalPortal.Order.Model
+namespace RentalPortal.Order.Entities
 {
     public class Invoice
     {

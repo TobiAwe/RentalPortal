@@ -5,6 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Persistence\" />
+    <Folder Include="Service\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 

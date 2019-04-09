@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using RentalPortal.Order.DTO;
 using RentalPortal.Order.Entities;
 
-namespace RentalPortal.Order.Persistence.Repository
+namespace RentalPortal.Order.Persistence.Repository.Interfaces
 {
     public interface IEquipmentRepository: IRepository<Equipment>
     {

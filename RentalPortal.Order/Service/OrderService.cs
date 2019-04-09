@@ -6,6 +6,7 @@ using AutoMapper;
 using RentalPortal.Order.Common.Enums;
 using RentalPortal.Order.DTO;
 using RentalPortal.Order.Entities;
+using RentalPortal.Order.Service.Interfaces;
 
 namespace RentalPortal.Order.Service
 {

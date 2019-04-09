@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
+using RentalPortal.Order.Data;
 using RentalPortal.Order.Persistence;
 using RentalPortal.Order.Persistence.Repository;
+using RentalPortal.Order.Persistence.Repository.Interfaces;
 
 namespace RentalPortal.Order
 {
@@ -9,6 +11,7 @@ namespace RentalPortal.Order
     {
         public IEquipmentRepository Equipment { get; set; }
         public IOrderRepository Orders { get; set; }
+        public ICartRepository Carts { get; set; }
         public ISettingRepository Settings { get; set; }
 
         private readonly TContext _context;

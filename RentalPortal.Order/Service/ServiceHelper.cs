@@ -9,6 +9,7 @@ using RentalPortal.Order.Common.Enums;
 using RentalPortal.Order.DTO;
 using RentalPortal.Order.Entities;
 using RentalPortal.Order.Persistence;
+using RentalPortal.Order.Service.Interfaces;
 
 namespace RentalPortal.Order.Service
 {
@@ -60,23 +61,21 @@ namespace RentalPortal.Order.Service
 
     public decimal CalculateAmount(OrderRequestItem ori)
         {
-            //seed to db on startup//var oneTimeRentalFee  =decimal.Parse("100");
-            //seed to db on startup//var premiumDailyFee = decimal.Parse("60");
-            //seed to db on startup//var regularDailyFee = decimal.Parse("40");
 
-            var oneTimeRentalFee = decimal.Parse(GetOrUpdateCacheItem("oneTimeRentalFee", () => _uow.Settings.GetSettingsAsync("oneTimeRentalFee")));
-            var premiumDailyFee = decimal.Parse(GetOrUpdateCacheItem("premiumDailyFee", () => _uow.Settings.GetSettingsAsync("premiumDailyFee")));
-            var regularDailyFee = decimal.Parse(GetOrUpdateCacheItem("regularDailyFee", () => _uow.Settings.GetSettingsAsync("regularDailyFee")));
+            var oneTimeRentalFee = int.Parse(GetOrUpdateCacheItem("oneTimeRentalFee", () => _uow.Settings.GetSettingsAsync("oneTimeRentalFee")));
+            var premiumDailyFee = int.Parse(GetOrUpdateCacheItem("premiumDailyFee", () => _uow.Settings.GetSettingsAsync("premiumDailyFee")));
+            var regularDailyFee = int.Parse(GetOrUpdateCacheItem("regularDailyFee", () => _uow.Settings.GetSettingsAsync("regularDailyFee")));
 
             
             //get total number of days
-           var amount = decimal.Parse("0");
-           var check = int.TryParse(NumberOfDays(ori.StartDate, ori.EndDate), out int numberOfDays);
+           var amount = 0;
+           var check = int.TryParse(NumberOfDays(ori.StartDate, ori.EndDate), out var numberOfDays);
            if (!check)
            {
                return amount;
            }
-          switch (ori.Equipment.EquipmentType)
+
+           switch (ori.Equipment.EquipmentType)
           {
                 case EquipmentType.Heavy:
                     //Heavy – rental price is one-time rental fee plus premium fee for each day rented.
@@ -84,17 +83,17 @@ namespace RentalPortal.Order.Service
                     break;
                 case EquipmentType.Regular:
                     //Regular – rental price is one - time rental fee plus premium fee for the first 2 days plus regular fee for the number of days over 2.
-                    decimal firstHalf = decimal.Parse("0");
-                    decimal secondHalf = decimal.Parse("0");
+                    var firstHalf = 0;
+                    var secondHalf = 0;
                     firstHalf = numberOfDays >= 2 ? firstHalf + 2 * premiumDailyFee : firstHalf + premiumDailyFee;
                     if (numberOfDays > 2){secondHalf = secondHalf + (numberOfDays - 2) * regularDailyFee;}
                     amount = amount + oneTimeRentalFee + firstHalf + secondHalf;
                     break;
                 case EquipmentType.Specialized:
                     // • Specialized – rental price is premium fee for the first 3 days plus regular fee times the number of days over 3.
-                    decimal sFirstHalf;
-                    decimal sSecondHalf = decimal.Parse("0");
+                    var sSecondHalf = 0;
 
+                    decimal sFirstHalf;
                     if (numberOfDays <= 2)
                     {
                         if (numberOfDays == 2)
@@ -116,7 +115,7 @@ namespace RentalPortal.Order.Service
                         sSecondHalf = (numberOfDays - 3) * regularDailyFee;
                     }
 
-                    amount = amount + sFirstHalf + sSecondHalf;
+                    amount = (int) (amount + sFirstHalf + sSecondHalf);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -163,10 +162,6 @@ namespace RentalPortal.Order.Service
 
     public T GetOrUpdateCacheItem<T>(string key, Func<T> update, TimeSpan idle = default(TimeSpan))
     {
-        //if (idle == new TimeSpan())
-        //    idle = TimeSpan.FromHours(12);
-
-
         if (_cacheManager.Contains(key))
         {
             return (T)_cacheManager.Get(key);

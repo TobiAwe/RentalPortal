@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RentalPortal.Order.Entities;
 
-namespace RentalPortal.Order
+namespace RentalPortal.Order.Data
 {
     public class EfDbContext : DbContext 
     {

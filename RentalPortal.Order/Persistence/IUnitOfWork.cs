@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using RentalPortal.Order.Persistence.Repository;
+using RentalPortal.Order.Persistence.Repository.Interfaces;
 
 namespace RentalPortal.Order.Persistence
 {
@@ -8,6 +9,7 @@ namespace RentalPortal.Order.Persistence
     {
         IEquipmentRepository Equipment { get; set; }
         IOrderRepository Orders { get; set; }
+        ICartRepository Carts { get; set; }
         ISettingRepository Settings { get; set; }
 
         Task CompleteAsync();

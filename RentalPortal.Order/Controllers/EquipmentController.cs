@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using RentalPortal.Order.DTO;
 using RentalPortal.Order.Service;
+using RentalPortal.Order.Service.Interfaces;
 
 namespace RentalPortal.Order.Controllers
 {

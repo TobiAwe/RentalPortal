@@ -5,8 +5,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using RentalPortal.Order.DTO;
-using RentalPortal.Order.Model;
+using RentalPortal.Order.Entities;
 using RentalPortal.Order.Service;
+using RentalPortal.Order.Service.Interfaces;
 
 namespace RentalPortal.Order.Controllers
 {

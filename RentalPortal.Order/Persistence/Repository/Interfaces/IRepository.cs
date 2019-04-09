@@ -4,7 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace RentalPortal.Order.Persistence.Repository
+namespace RentalPortal.Order.Persistence.Repository.Interfaces
 {
     public interface IRepository<TEntity> where TEntity : class
     {

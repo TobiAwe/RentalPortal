@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using RentalPortal.Order.DTO;
 
-namespace RentalPortal.Order.Service
+namespace RentalPortal.Order.Service.Interfaces
 {
     public interface IOrderService
     {

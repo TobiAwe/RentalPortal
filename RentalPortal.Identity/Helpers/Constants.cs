@@ -7,7 +7,7 @@ namespace RentalPortal.Identity.Helpers
         {
             public static class JwtClaimIdentifiers
             {
-                public const string Rol = "rol", Id = "id",Email="email";
+                public const string Rol = "role", Id = "id",Email="email";
             }
 
             public static class JwtClaims
