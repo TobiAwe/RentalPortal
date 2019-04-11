@@ -1,14 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using RentalPortal.Order.Common;
 using RentalPortal.Order.DTO;
 using RentalPortal.Order.Entities;
 using RentalPortal.Order.Service.Interfaces;
 
 namespace RentalPortal.Order.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class OrderController : ControllerBase
@@ -27,7 +30,7 @@ namespace RentalPortal.Order.Controllers
         [Route("GetOrders")]
         public async Task<ActionResult<List<OrderDto>>> Order()
         {
-            var k= _helper.GetCurrentUserEmail();
+           
             var eq = await _orderService.GetApprovedOrders();
             return Ok(eq);
         }
@@ -42,6 +45,7 @@ namespace RentalPortal.Order.Controllers
         [Route("")]
         public async Task<ActionResult> CreateOrder(OrderDto order)
         {
+            
             order.Email = _helper.GetCurrentUserEmail();
             await _orderService.CreateOrder(order);
             return Ok();
@@ -70,12 +74,7 @@ namespace RentalPortal.Order.Controllers
             return Ok(invoice);
         }
 
-
-        //public string NumberOfDays(DateTime startDate, DateTime endDate)
-        //{
-        //    return (endDate - startDate).TotalDays.ToString(CultureInfo.InvariantCulture);
-        //}
-
+        
        
 
     }

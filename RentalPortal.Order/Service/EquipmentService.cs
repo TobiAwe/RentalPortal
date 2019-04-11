@@ -11,14 +11,14 @@ namespace RentalPortal.Order.Service
     public class EquipmentService : IEquipmentService
     {
 
-        private readonly IUnitOfWork _uow;
+        //private readonly IUnitOfWork _uow;
         private readonly IServiceHelper _helper;
         private readonly IEquipmentRepository _equipment;
         private readonly IMapper _mapper;
 
-        public EquipmentService(IUnitOfWork uow, IEquipmentRepository equipment, IServiceHelper helper, IMapper mapper)
+        public EquipmentService(IEquipmentRepository equipment, IServiceHelper helper, IMapper mapper)
         {
-            _uow = uow;
+            //_uow = uow;
             _helper = helper;
             _equipment = equipment;
             _mapper = mapper;

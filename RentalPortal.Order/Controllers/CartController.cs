@@ -8,6 +8,7 @@ using RentalPortal.Order.Service.Interfaces;
 
 namespace RentalPortal.Order.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class CartController : ControllerBase
@@ -26,7 +27,7 @@ namespace RentalPortal.Order.Controllers
         [Route("GetCart")]
         public async Task<ActionResult<List<CartItemDto>>> Cart()
         {
-            var user = _helper.GetCurrentUserEmail();
+            var user = _helper.GetCurrentUserEmail();         
             var result=await _cartService.UserCartItems(user);
             return Ok(result);
         }

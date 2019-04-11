@@ -8,7 +8,6 @@ using RentalPortal.Order.Common.Cache;
 using RentalPortal.Order.Common.Enums;
 using RentalPortal.Order.DTO;
 using RentalPortal.Order.Entities;
-using RentalPortal.Order.Persistence;
 using RentalPortal.Order.Persistence.Repository.Interfaces;
 using RentalPortal.Order.Service.Interfaces;
 
@@ -16,15 +15,15 @@ namespace RentalPortal.Order.Service
 {
     public class ServiceHelper: IServiceHelper
     {
-    private readonly IUnitOfWork _uow;
+   // private readonly IUnitOfWork _uow;
     private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly ICacheManager _cacheManager;
     private readonly ISettingRepository _settingRepository;
 
-        public ServiceHelper(IHttpContextAccessor httpContextAccessor, ICacheManager cacheManager, IUnitOfWork uow,ISettingRepository settingRepository)
+        public ServiceHelper(IHttpContextAccessor httpContextAccessor, ICacheManager cacheManager,ISettingRepository settingRepository)
         {
             _cacheManager = cacheManager;
-            _uow = uow;
+            //_uow = uow;
             _settingRepository = settingRepository;
             _httpContextAccessor = httpContextAccessor ?? throw new ArgumentNullException(nameof(httpContextAccessor));
         }
@@ -35,11 +34,12 @@ namespace RentalPortal.Order.Service
          throw new  RentalPortalGenericException("Error validating your request. Please try again.", errorCode);
     }
 
- 
+
 
     public string GetCurrentUserEmail()
     {
-
+        try
+        {
             string authorizationHeader = _httpContextAccessor.HttpContext.Request.Headers["Authorization"];
 
             if (authorizationHeader != null)
@@ -52,9 +52,11 @@ namespace RentalPortal.Order.Service
 
                 if (email != null) return email.Value;
             }
-
-            throw new ArgumentNullException("email");
-        }
+            throw new RentalPortalGenericException("user not authorized");
+            }
+            catch (Exception)
+                {throw new RentalPortalGenericException("user not authorized");}
+    }
 
 
     public string NumberOfDays(DateTime startDate, DateTime endDate)
