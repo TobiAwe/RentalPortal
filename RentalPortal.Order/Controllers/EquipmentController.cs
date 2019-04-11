@@ -12,25 +12,27 @@ namespace RentalPortal.Order.Controllers
     {
         private readonly IEquipmentService _equipmentService;
 
-
         public EquipmentController(IEquipmentService equipmentService)
         {
             _equipmentService = equipmentService;
         }
 
         [HttpGet]
+        [Route("GetEquipment")]
         public async Task<ActionResult<List<EquipmentDto>>> Equipment()
         {
             var eq = await _equipmentService.GetAllEquipment();
             return Ok(eq);
         }
         [HttpGet]
+        [Route("GetEquipmentById")]
         public async Task<ActionResult<EquipmentDto>> EquipmentById(int id)
         {
             var eq = await _equipmentService.GetEquipmentById(id);
             return Ok(eq);
         }
         [HttpGet]
+        [Route("GetEquipmentCount")]
         public async Task<ActionResult<int>> EquipmentCount(int id)
         {
             var eq = await _equipmentService.EquipmentCount(id);

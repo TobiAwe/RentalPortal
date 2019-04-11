@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-
+using Ninject;
 using RentalPortal.Order.Data;
 using RentalPortal.Order.Persistence.Repository.Interfaces;
 
@@ -8,13 +8,13 @@ namespace RentalPortal.Order.Persistence.Repository
 {
     public class UnitOfWork<TContext> : IUnitOfWork where TContext : OrderDbContext
     {
-        
+        [Inject]
         public IEquipmentRepository Equipment { get; set; }
-        
+        [Inject]
         public IOrderRepository Orders { get; set; }
-        
+        [Inject]
         public ICartRepository Carts { get; set; }
-        
+        [Inject]
         public ISettingRepository Settings { get; set; }
 
         private readonly TContext _context;

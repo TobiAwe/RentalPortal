@@ -24,6 +24,7 @@ namespace RentalPortal.Order.Controllers
         }
 
         [HttpGet]
+        [Route("GetCart")]
         public async Task<ActionResult<List<CartItemDto>>> Cart()
         {
             var user = _helper.GetCurrentUserEmail();
@@ -32,6 +33,7 @@ namespace RentalPortal.Order.Controllers
         }
 
         [HttpPost]
+        [Route("")]
         public async Task<ActionResult<string>> AddToCart(CartItemDto cart)
         {
             var user = _helper.GetCurrentUserEmail();
@@ -41,6 +43,7 @@ namespace RentalPortal.Order.Controllers
         }
 
         [HttpGet]
+        [Route("DeletCart")]
         public async Task<ActionResult<string>> DeleteFromCart(string cartItemId)
         {
             var identity = Guid.Parse(cartItemId);
