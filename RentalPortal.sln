@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RentalPortal.Identity", "Re
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RentalPortal.Order", "RentalPortal.Order\RentalPortal.Order.csproj", "{BA2E73E8-E519-4DF5-B36F-78AF495F6926}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RentalPortal.Web", "RentalPortal.Web\RentalPortal.Web.csproj", "{18C3421B-D85D-46A1-981C-FB8095CE9575}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{BA2E73E8-E519-4DF5-B36F-78AF495F6926}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BA2E73E8-E519-4DF5-B36F-78AF495F6926}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BA2E73E8-E519-4DF5-B36F-78AF495F6926}.Release|Any CPU.Build.0 = Release|Any CPU
+		{18C3421B-D85D-46A1-981C-FB8095CE9575}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18C3421B-D85D-46A1-981C-FB8095CE9575}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18C3421B-D85D-46A1-981C-FB8095CE9575}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18C3421B-D85D-46A1-981C-FB8095CE9575}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -34,6 +40,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{DB0EAF24-9D8C-4CF4-BC87-5EC1DE650BE9} = {83398035-BFC4-4FBB-A226-6728AA126131}
 		{BA2E73E8-E519-4DF5-B36F-78AF495F6926} = {83398035-BFC4-4FBB-A226-6728AA126131}
+		{18C3421B-D85D-46A1-981C-FB8095CE9575} = {92F66C8B-CC10-4921-AE9C-4A88CBCDD62C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7D98CDA7-C106-4996-A8D9-912EE807BF7F}
