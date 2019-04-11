@@ -11,7 +11,7 @@ namespace RentalPortal.Order.Persistence.Repository
 
 
 
-    public class Repository<TEntity, TContext> where TEntity : class where TContext : DbContext, new()
+    public class Repository<TEntity, TContext> where TEntity : class where TContext : DbContext//, new()
     {
         protected TContext Context;
 

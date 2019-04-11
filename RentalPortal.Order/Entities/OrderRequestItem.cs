@@ -1,9 +1,12 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace RentalPortal.Order.Entities
 {
     public class OrderRequestItem
     {
+        [Key]
         public int OrderRequestItemId { get; set; }
 
         public DateTime StartDate { get; set; }

@@ -3,16 +3,17 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RentalPortal.Order.DTO;
 using RentalPortal.Order.Entities;
-using RentalPortal.Order.Service;
 using RentalPortal.Order.Service.Interfaces;
 
 namespace RentalPortal.Order.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class OrderController : ControllerBase
     {
         private readonly IOrderService _orderService;
@@ -25,26 +26,26 @@ namespace RentalPortal.Order.Controllers
             _orderService = orderService;
         }
 
-
+        [HttpGet]
         public async Task<ActionResult<List<OrderDto>>> Order()
         {
             var eq = await _orderService.GetApprovedOrders();
             return Ok(eq);
         }
-
+        [HttpGet]
         public async Task<ActionResult<OrderDto>> OrderById(int id)
         {
             var eq = await _orderService.GetOrderById(id);
             return Ok(eq);
         }
-
+        [HttpPost]
         public async Task<ActionResult> CreateOrder(OrderDto order)
         {
             order.Email = _helper.GetCurrentUserEmail();
             await _orderService.CreateOrder(order);
             return Ok();
         }
-
+        [HttpGet]
         public async Task<ActionResult<Invoice>> Invoice(int id)
         {
             var order = await _orderService.GetOrderById(id);
@@ -68,10 +69,10 @@ namespace RentalPortal.Order.Controllers
         }
 
 
-        public string NumberOfDays(DateTime startDate, DateTime endDate)
-        {
-            return (endDate - startDate).TotalDays.ToString(CultureInfo.InvariantCulture);
-        }
+        //public string NumberOfDays(DateTime startDate, DateTime endDate)
+        //{
+        //    return (endDate - startDate).TotalDays.ToString(CultureInfo.InvariantCulture);
+        //}
 
        
 

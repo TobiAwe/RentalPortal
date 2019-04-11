@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+﻿using System.Linq;
 using RentalPortal.Order.Data;
 using RentalPortal.Order.Entities;
 using RentalPortal.Order.Persistence.Repository.Interfaces;
 
 namespace RentalPortal.Order.Persistence.Repository
 {
-    public class SettingRepository : Repository<Setting, EfDbContext>, ISettingRepository
+    public class SettingRepository : Repository<Setting, OrderDbContext>, ISettingRepository
     {
-        public SettingRepository(EfDbContext context) : base(context)
+        public SettingRepository(OrderDbContext context) : base(context)
         {
         }
 

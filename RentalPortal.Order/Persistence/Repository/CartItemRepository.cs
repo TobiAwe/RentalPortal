@@ -9,9 +9,9 @@ using RentalPortal.Order.Persistence.Repository.Interfaces;
 
 namespace RentalPortal.Order.Persistence.Repository
 {
-    public class CartItemRepository : Repository<CartItem, CartDbContext>, ICartRepository
+    public class CartItemRepository : Repository<CartItem, OrderDbContext>, ICartRepository
     {
-        public CartItemRepository(CartDbContext context) : base(context)
+        public CartItemRepository(OrderDbContext context) : base(context)
         {
         }
 

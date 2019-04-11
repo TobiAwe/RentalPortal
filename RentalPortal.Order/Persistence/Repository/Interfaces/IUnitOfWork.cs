@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
-using RentalPortal.Order.Persistence.Repository;
-using RentalPortal.Order.Persistence.Repository.Interfaces;
 
-namespace RentalPortal.Order.Persistence
+namespace RentalPortal.Order.Persistence.Repository.Interfaces
 {
     public interface IUnitOfWork : IDisposable
     {

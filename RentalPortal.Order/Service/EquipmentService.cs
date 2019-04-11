@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using RentalPortal.Order.DTO;
 using RentalPortal.Order.Persistence;
+using RentalPortal.Order.Persistence.Repository.Interfaces;
 using RentalPortal.Order.Service.Interfaces;
 
 namespace RentalPortal.Order.Service

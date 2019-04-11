@@ -36,7 +36,6 @@ namespace RentalPortal.Identity
             // Add framework services.
             services.AddDbContext<EfDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DbConnect")));
-                  //  b => b.MigrationsAssembly("RentalPortalIdentity")));
 
             services.AddSingleton<IUserService, UserService>();
             services.AddScoped<ExceptionHandlerMiddleware>();
@@ -107,17 +106,12 @@ namespace RentalPortal.Identity
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            app.UseExceptionHandler();
+            app.UseDeveloperExceptionPage();
             app.UseAuthentication();
             app.UseDefaultFiles();
             app.UseStaticFiles();
             app.UseMvc();
 
-            app.UseMvc();
         }
     }
 }

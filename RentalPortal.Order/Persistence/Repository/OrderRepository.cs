@@ -9,9 +9,9 @@ using RentalPortal.Order.Persistence.Repository.Interfaces;
 
 namespace RentalPortal.Order.Persistence.Repository
 {
-    public class OrderRepository : Repository<OrderRequest, EfDbContext>, IOrderRepository
+    public class OrderRepository : Repository<OrderRequest, OrderDbContext>, IOrderRepository
     {
-        public OrderRepository(EfDbContext context) : base(context)
+        public OrderRepository(OrderDbContext context) : base(context)
         {
         }
 
