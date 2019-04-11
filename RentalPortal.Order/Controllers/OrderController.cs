@@ -11,7 +11,6 @@ namespace RentalPortal.Order.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class OrderController : ControllerBase
     {
         private readonly IOrderService _orderService;
@@ -25,9 +24,10 @@ namespace RentalPortal.Order.Controllers
         }
 
         [HttpGet]
-        [Route("GetOrder")]
+        [Route("GetOrders")]
         public async Task<ActionResult<List<OrderDto>>> Order()
         {
+            var k= _helper.GetCurrentUserEmail();
             var eq = await _orderService.GetApprovedOrders();
             return Ok(eq);
         }

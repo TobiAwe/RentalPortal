@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using RentalPortal.Order.DTO;
-using RentalPortal.Order.Persistence;
+using RentalPortal.Order.Entities;
 using RentalPortal.Order.Persistence.Repository.Interfaces;
 using RentalPortal.Order.Service.Interfaces;
 
@@ -13,32 +13,37 @@ namespace RentalPortal.Order.Service
 
         private readonly IUnitOfWork _uow;
         private readonly IServiceHelper _helper;
+        private readonly IEquipmentRepository _equipment;
+        private readonly IMapper _mapper;
 
-        public EquipmentService(IUnitOfWork uow, IServiceHelper helper)
+        public EquipmentService(IUnitOfWork uow, IEquipmentRepository equipment, IServiceHelper helper, IMapper mapper)
         {
             _uow = uow;
             _helper = helper;
+            _equipment = equipment;
+            _mapper = mapper;
         }
         public async Task<EquipmentDto> GetEquipmentById(int id)
         {
-            var request = await _uow.Equipment.GetAsync(id);
+            var request = await _equipment.GetAsync(id);//_uow.Equipment.GetAsync(id);
 
             if (request == null)
             {
                 throw await _helper.GetExceptionAsync("Equipment entry does not exist");
             }
-            return Mapper.Map<EquipmentDto>(request);
+            return _mapper.Map<Equipment,EquipmentDto>(request);
+
         }
 
         public async Task<List<EquipmentDto>> GetAllEquipment()
         {
-            var request = await _uow.Equipment.GetAllEquipmentsAsync();
+            var request = await _equipment.GetAllEquipmentsAsync();
             return request;
         }
 
         public async Task<int> EquipmentCount(int equipmentId)
         {
-            var request = await _uow.Equipment.EquipmentCount(equipmentId);
+            var request = await _equipment.EquipmentCount(equipmentId);
             return request;
         }
     }

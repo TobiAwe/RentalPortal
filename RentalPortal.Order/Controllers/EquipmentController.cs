@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RentalPortal.Order.DTO;
 using RentalPortal.Order.Service.Interfaces;
@@ -8,7 +9,7 @@ namespace RentalPortal.Order.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class EquipmentController : Controller
+    public class EquipmentController : ControllerBase
     {
         private readonly IEquipmentService _equipmentService;
 
@@ -25,14 +26,14 @@ namespace RentalPortal.Order.Controllers
             return Ok(eq);
         }
         [HttpGet]
-        [Route("GetEquipmentById")]
+        [Route("GetEquipmentById/{id}")]
         public async Task<ActionResult<EquipmentDto>> EquipmentById(int id)
         {
             var eq = await _equipmentService.GetEquipmentById(id);
             return Ok(eq);
         }
         [HttpGet]
-        [Route("GetEquipmentCount")]
+        [Route("GetEquipmentCount/{id}")]
         public async Task<ActionResult<int>> EquipmentCount(int id)
         {
             var eq = await _equipmentService.EquipmentCount(id);

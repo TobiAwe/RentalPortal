@@ -6,31 +6,33 @@ using RentalPortal.Order.Persistence.Repository.Interfaces;
 
 namespace RentalPortal.Order.Persistence.Repository
 {
-    public class UnitOfWork<TContext> : IUnitOfWork where TContext : OrderDbContext
+    public class UnitOfWork : IUnitOfWork //where TContext : OrderDbContext
     {
-        [Inject]
-        public IEquipmentRepository Equipment { get; set; }
-        [Inject]
-        public IOrderRepository Orders { get; set; }
-        [Inject]
-        public ICartRepository Carts { get; set; }
-        [Inject]
-        public ISettingRepository Settings { get; set; }
+        ////[Inject]
+        //public IEquipmentRepository Equipment { get; set; }
+        ////[Inject]
+        //public IOrderRepository Orders { get; set; }
+        ////[Inject]
+        //public ICartRepository Carts { get; set; }
+        ////[Inject]
+        //public ISettingRepository Settings { get; set; }
 
-        private readonly TContext _context;
 
-        public UnitOfWork(TContext context)
+
+        public  OrderDbContext Context { get; }
+
+        public UnitOfWork(OrderDbContext context)
         {
-            _context = context;
+            Context = context;
         }
 
         public async Task CompleteAsync()
         {
-            using (var transaction = _context.Database.BeginTransaction())
+            using (var transaction = Context.Database.BeginTransaction())
             {
                 try
                 {
-                    await _context.SaveChangesAsync();
+                    await Context.SaveChangesAsync();
                     transaction.Commit();
                 }
                 catch (Exception ex)
@@ -45,11 +47,11 @@ namespace RentalPortal.Order.Persistence.Repository
 
         public void Complete()
         {
-            using (var transaction = _context.Database.BeginTransaction())
+            using (var transaction = Context.Database.BeginTransaction())
             {
                 try
                 {
-                    _context.SaveChanges();
+                    Context.SaveChanges();
                     transaction.Commit();
                 }
                 catch (Exception ex)
@@ -73,7 +75,7 @@ namespace RentalPortal.Order.Persistence.Repository
             if (_isDisposing) return;
 
             _isDisposing = disposing;
-            _context.Dispose();
+            Context.Dispose();
             _isDisposing = false;
         }
 

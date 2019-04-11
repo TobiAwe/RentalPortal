@@ -4,16 +4,19 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using RentalPortal.Order.Data;
+using RentalPortal.Order.DTO;
 using RentalPortal.Order.Entities;
 using RentalPortal.Order.Persistence.Repository.Interfaces;
 
 namespace RentalPortal.Order.Persistence.Repository
 {
-    public class CartItemRepository : Repository<CartItem, OrderDbContext>, ICartRepository
+    public class CartItemRepository : Repository<CartItem>, ICartRepository
     {
+
         public CartItemRepository(OrderDbContext context) : base(context)
         {
         }
+
 
         public async Task<List<CartItem>> UserCartItems(string userId)
         {
@@ -42,5 +45,8 @@ namespace RentalPortal.Order.Persistence.Repository
 
             return false;
         }
+
+
+        
     }
 }

@@ -10,7 +10,6 @@ namespace RentalPortal.Order.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class CartController : ControllerBase
     {
         private readonly ICartService _cartService;
@@ -43,7 +42,7 @@ namespace RentalPortal.Order.Controllers
         }
 
         [HttpGet]
-        [Route("DeletCart")]
+        [Route("DeleteCart")]
         public async Task<ActionResult<string>> DeleteFromCart(string cartItemId)
         {
             var identity = Guid.Parse(cartItemId);

@@ -12,7 +12,7 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "api/hello",
+      "launchUrl": "api/equipment/getequipment",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
@@ -20,7 +20,7 @@
     "RentalPortal.Order": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "api/hello",
+      "launchUrl": "api/equipment/getequipment",
       "applicationUrl": "http://localhost:5000",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"

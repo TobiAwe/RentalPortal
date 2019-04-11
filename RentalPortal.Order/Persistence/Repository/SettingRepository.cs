@@ -5,7 +5,7 @@ using RentalPortal.Order.Persistence.Repository.Interfaces;
 
 namespace RentalPortal.Order.Persistence.Repository
 {
-    public class SettingRepository : Repository<Setting, OrderDbContext>, ISettingRepository
+    public class SettingRepository : Repository<Setting>, ISettingRepository
     {
         public SettingRepository(OrderDbContext context) : base(context)
         {

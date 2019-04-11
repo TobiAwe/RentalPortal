@@ -4,29 +4,33 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using RentalPortal.Order.Data;
 
 namespace RentalPortal.Order.Persistence.Repository
 {
 
 
-
-
-    public class Repository<TEntity, TContext> where TEntity : class where TContext : DbContext//, new()
+    public class Repository<TEntity> where TEntity : class 
     {
-        protected TContext Context;
+        protected OrderDbContext Context;
 
         private readonly DbSet<TEntity> _entitySet;
 
-        protected Repository(TContext context)
+        public Repository(OrderDbContext context)
         {
             Context = context;
             _entitySet = context.Set<TEntity>();
 
         }
+        //private readonly OrderDbContext _database;
+        //public Repository(OrderDbContext database)
+        //{
+        //    _database = database;
+        //}
 
         public TEntity Get(int entityId)
         {
-            return _entitySet.Find(entityId);
+            return  _entitySet.Find(entityId);
         }
 
         public TEntity Get(Guid entityGuid)

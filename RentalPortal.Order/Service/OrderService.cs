@@ -1,5 +1,4 @@
-﻿using RentalPortal.Order.Persistence;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -15,34 +14,38 @@ namespace RentalPortal.Order.Service
     {
         private readonly IUnitOfWork _uow;
         private readonly IServiceHelper _helper;
+        private readonly IMapper _mapper;
+        private readonly IOrderRepository _orderRepository;
 
-        public OrderService(IUnitOfWork uow, IServiceHelper helper)
+        public OrderService(IUnitOfWork uow,IOrderRepository orderRepository, IMapper mapper, IServiceHelper helper)
         {
             _uow = uow;
+            _orderRepository = orderRepository;
+            _mapper = mapper;
             _helper = helper;
         }
 
 
         public async Task<OrderDto> GetOrderById(int orderId)
         {
-            var request = await _uow.Orders.GetAsync(orderId);
+            var request = await _orderRepository.GetAsync(orderId);
 
             if (request == null)
             {
                 throw await _helper.GetExceptionAsync("Order entry does not exist");
             }
-            return Mapper.Map<OrderDto>(request);
+            return _mapper.Map<OrderDto>(request);
         }
 
         public async Task<List<OrderDto>> GetCustomerOrders(string email)
         {
-            var orders =await _uow.Orders.GetCustomerOrdersAsync(email);
+            var orders =await _orderRepository.GetCustomerOrdersAsync(email);
             return orders;
         }
 
         public async Task<List<OrderDto>> GetApprovedOrders()
         {
-            var approved =await _uow.Orders.GetAllOrdersAsync();
+            var approved =await _orderRepository.GetAllOrdersAsync();
             return approved;
         }
 
@@ -55,13 +58,13 @@ namespace RentalPortal.Order.Service
                 Email = order.Email,
                 OrderRequestItems = order.OrderRequestItems,
             };
-            _uow.Orders.Add(entry);
+            _orderRepository.Add(entry);
             await _uow.CompleteAsync();
         }
 
         public async Task UpdateOrder(OrderDto order)
         {
-            var request = await _uow.Orders.GetAsync(order.OrderId);
+            var request = await _orderRepository.GetAsync(order.OrderId);
 
             if (request == null)
             {

@@ -19,11 +19,13 @@ namespace RentalPortal.Order.Service
     private readonly IUnitOfWork _uow;
     private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly ICacheManager _cacheManager;
+    private readonly ISettingRepository _settingRepository;
 
-        public ServiceHelper(IHttpContextAccessor httpContextAccessor, ICacheManager cacheManager, IUnitOfWork uow)
+        public ServiceHelper(IHttpContextAccessor httpContextAccessor, ICacheManager cacheManager, IUnitOfWork uow,ISettingRepository settingRepository)
         {
             _cacheManager = cacheManager;
             _uow = uow;
+            _settingRepository = settingRepository;
             _httpContextAccessor = httpContextAccessor ?? throw new ArgumentNullException(nameof(httpContextAccessor));
         }
 
@@ -46,7 +48,7 @@ namespace RentalPortal.Order.Service
                 var token = authorizationHeader.Split(" ")[1];
                 var passedToken = tokenHandler.ReadJwtToken(token);
 
-                var email = passedToken.Claims.FirstOrDefault(c => c.Type == "email");
+                var email = passedToken.Claims.FirstOrDefault(c => c.Type == "sub");
 
                 if (email != null) return email.Value;
             }
@@ -63,9 +65,9 @@ namespace RentalPortal.Order.Service
     public decimal CalculateAmount(OrderRequestItem ori)
         {
 
-            var oneTimeRentalFee = int.Parse(GetOrUpdateCacheItem("oneTimeRentalFee", () => _uow.Settings.GetSettingsAsync("oneTimeRentalFee")));
-            var premiumDailyFee = int.Parse(GetOrUpdateCacheItem("premiumDailyFee", () => _uow.Settings.GetSettingsAsync("premiumDailyFee")));
-            var regularDailyFee = int.Parse(GetOrUpdateCacheItem("regularDailyFee", () => _uow.Settings.GetSettingsAsync("regularDailyFee")));
+            var oneTimeRentalFee = int.Parse(GetOrUpdateCacheItem("oneTimeRentalFee", () => _settingRepository.GetSettingsAsync("oneTimeRentalFee")));
+            var premiumDailyFee = int.Parse(GetOrUpdateCacheItem("premiumDailyFee", () => _settingRepository.GetSettingsAsync("premiumDailyFee")));
+            var regularDailyFee = int.Parse(GetOrUpdateCacheItem("regularDailyFee", () => _settingRepository.GetSettingsAsync("regularDailyFee")));
 
             
             //get total number of days

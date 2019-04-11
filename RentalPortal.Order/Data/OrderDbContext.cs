@@ -9,9 +9,7 @@ namespace RentalPortal.Order.Data
             : base(options)
         {
         }
-        //public OrderDbContext()
-        //{
-        //}
+
         public DbSet<CartItem> CartItems { get; set; }
         public DbSet<Setting> Settings { get; set; }
         public DbSet<Equipment> Equipment { get; set; }

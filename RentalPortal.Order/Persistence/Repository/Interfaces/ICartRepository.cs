@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using RentalPortal.Order.DTO;
 using RentalPortal.Order.Entities;
 
 namespace RentalPortal.Order.Persistence.Repository.Interfaces
@@ -9,8 +10,8 @@ namespace RentalPortal.Order.Persistence.Repository.Interfaces
     {
         Task<List<CartItem>> UserCartItems(string userId);
         Task<CartItem> CartItemsById(Guid cartId);
-
         Task<bool> CheckOut(string userId);
+
 
 
 

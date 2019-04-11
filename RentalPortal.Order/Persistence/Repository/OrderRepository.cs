@@ -9,7 +9,7 @@ using RentalPortal.Order.Persistence.Repository.Interfaces;
 
 namespace RentalPortal.Order.Persistence.Repository
 {
-    public class OrderRepository : Repository<OrderRequest, OrderDbContext>, IOrderRepository
+    public class OrderRepository : Repository<OrderRequest>, IOrderRepository
     {
         public OrderRepository(OrderDbContext context) : base(context)
         {
