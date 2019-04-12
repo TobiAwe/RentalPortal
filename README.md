@@ -12,9 +12,9 @@ The Microservice backend consists of :<br><br>
 	2.The Database for the two microservices should be initialized
 	3.connection string should be updated in the appsettings configuration file
 	4.a user may be created and auth token generated for by sending post requests to "api/accounts/register" and "api/auth/login" respectively
-	5.the equipment table in the order microservice db should be seeded with sample data
+	5.the equipment table in the order microservice db should be seeded with sample data. seedDB.sql in the repo root could be used for this.
 	
-#the microservice implementation approach is necessary in other to make scaling up/out of sets of related features(individual microservice projects) easier and fastery; based on the amount of user request being served. unlike a monolithic approach where the entire system would have to be scaled out/up.
+# the microservice implementation approach is necessary in other to make scaling up/out of sets of related features(individual microservice projects) easier and faster; based on the amount of user request being served. unlike a monolithic approach where the entire system would have to be scaled out/up.
 
  
  
