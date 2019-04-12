@@ -2,28 +2,50 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using RentalPortal.Web.Common.Constants;
 using RentalPortal.Web.Models;
+
 
 namespace RentalPortal.Web.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private readonly IHttpClientFactory _apiClient;
+        //private readonly IHttpClientFactory _clientFactory;
+
+        public HomeController(IHttpClientFactory apiClient)
         {
-            return View();
+            _apiClient = apiClient;
         }
 
-        public IActionResult Privacy()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var responseString = await _apiClient.CreateClient().GetStringAsync($"{ApiRoutes.Equipment}/getequipment");
+            var response = JsonConvert.DeserializeObject<List<EquipmentDto>>(responseString);
+            return View(response);
+
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+
+        public async Task<IActionResult> Details(int id)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            var responseString = await _apiClient.CreateClient().GetStringAsync($"{ApiRoutes.Equipment}/GetEquipmentById/{id}");
+            var response = JsonConvert.DeserializeObject<EquipmentDto>(responseString);
+
+            var inventoryCount= await _apiClient.CreateClient().GetStringAsync($"{ApiRoutes.Equipment}/GetEquipmentCount/{id}");
+            ViewBag.InventoryCount= JsonConvert.DeserializeObject<string>(inventoryCount);
+            return View(response);
+
         }
+
+
+
+
+
+
     }
 }

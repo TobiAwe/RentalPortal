@@ -45,7 +45,7 @@ namespace RentalPortal.Identity.Controllers
             return new OkObjectResult("Registration Successful");
         }
 
-
+        [HttpGet("Welcome")]
         public ActionResult Welcome()
         {
             return View("Welcome");

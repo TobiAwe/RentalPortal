@@ -1,0 +1,27 @@
+﻿@model RentalPortal.Web.Models.EquipmentDto
+
+@{
+    ViewData["Title"] = "Details of " + Model.Name;
+}
+
+<div class="col-lg-9">
+    <div class="card mt-4">
+        <img class="card-img-top img-fluid" src="http://placehold.it/900x400" alt="">
+        <div class="card-body">
+            <h3 class="card-title">@Model.Name</h3>
+            <h4>Number Available : @ViewBag.InventoryCount</h4>
+            <p class="card-text">@Model.EquipmentType.ToString("G")</p>
+            <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
+            4.0 stars
+        </div>
+    </div>
+    <!-- /.card -->
+ 
+    <!-- /.card -->
+</div>
+
+   
+<div>
+
+    <a asp-action="Index">Back to Equipment List</a>
+</div>
